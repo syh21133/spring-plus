@@ -25,7 +25,7 @@ public class AuthUser implements UserDetails {
 //    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> userRole.name());
+        return List.of(userRole::name);
     }
     
     @Override
