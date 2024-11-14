@@ -3,7 +3,9 @@ package org.example.expert.config;
 import org.example.expert.domain.auth.exception.AuthException;
 import org.example.expert.domain.common.annotation.Auth;
 import org.example.expert.domain.common.dto.AuthUser;
+import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.springframework.core.MethodParameter;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +29,7 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         return hasAuthAnnotation;
     }
 
-    //    @Override
+//    @Override
 //    public Object resolveArgument(
 //        @Nullable MethodParameter parameter,
 //        @Nullable ModelAndViewContainer mavContainer,
@@ -48,17 +50,18 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 //
 //        return new AuthUser(userId, email, nickName, userRole);
 //    }
+
     @Override
     public Object resolveArgument(
-        MethodParameter parameter,
-        ModelAndViewContainer mavContainer,
+        @Nullable MethodParameter parameter,
+        @Nullable ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest,
-        WebDataBinderFactory binderFactory
+        @Nullable WebDataBinderFactory binderFactory
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new IllegalArgumentException("인증되지 않은 사용자입니다.");
+            throw new InvalidRequestException("인증되지 않은 사용자입니다.");
         }
 
         // SecurityContext에서 AuthUser 객체 반환
@@ -67,16 +70,16 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         if (principal instanceof AuthUser authUser) {
             return authUser;
         } else if (principal instanceof UserDetails userDetails) {
-            // Principal이 UserDetails 타입일 경우 AuthUser로 변환
+
             return new AuthUser(
-                null, // ID를 가져올 수 없는 경우 처리 필요
+                null,
                 userDetails.getUsername(),
                 null,
                 null
             );
         }
 
-        throw new IllegalArgumentException("적합하지 않은 사용자 정보입니다.");
+        throw new InvalidRequestException("인증되지 않은 사용자입니다.");
     }
 
 }
