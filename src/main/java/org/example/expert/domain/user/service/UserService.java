@@ -8,6 +8,7 @@ import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.dto.response.UserResponseNickName;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.repository.UserRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,7 @@ public class UserService {
         }
     }
 
+    @Cacheable("users")
     public UserResponseNickName findByNickname(String nickname) {
         long startTime = System.nanoTime();
         User user = userRepository.findByNickName(nickname);
