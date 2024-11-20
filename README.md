@@ -9,10 +9,9 @@ aws
 
 데이터 조회 시간 비교 (5만개)  
 ----------------------------
-기본                                   캐싱                                   인덱스 설정  
+기본                                        인덱스 설정  
 
 ![처음](https://github.com/user-attachments/assets/f5f5ee2f-b6a2-454d-847c-d087e181a7ab)
-![캐싱만](https://github.com/user-attachments/assets/c4407a4c-721e-47c5-9a4c-a9f6ada8d542)
 ![닉네임에 인덱스생성](https://github.com/user-attachments/assets/dfc9ee11-5717-4256-83b4-f28bfa9c1085)
 
 
