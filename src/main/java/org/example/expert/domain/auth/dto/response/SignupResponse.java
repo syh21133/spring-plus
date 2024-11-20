@@ -6,8 +6,10 @@ import lombok.Getter;
 public class SignupResponse {
 
     private final String bearerToken;
+    private final String fileUrl;
 
-    public SignupResponse(String bearerToken) {
+    public SignupResponse(String bearerToken, String fileUrl) {
         this.bearerToken = bearerToken;
+        this.fileUrl = fileUrl;
     }
 }

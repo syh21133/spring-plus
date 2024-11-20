@@ -41,8 +41,6 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 //        // JwtFilter 에서 set 한 userId, email, userRole 값을 가져옴
 //        Long userId = (Long) request.getAttribute("userId");
 //        String email = (String) request.getAttribute("email");
-//        System.out.println(userId);
-//        System.out.println(email);
 //        System.out.println((String) request.getAttribute("userRole"));
 //
 //        UserRole userRole = UserRole.of((String) request.getAttribute("userRole"));
@@ -55,7 +53,7 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(
         @Nullable MethodParameter parameter,
         @Nullable ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest,
+        @Nullable NativeWebRequest webRequest,
         @Nullable WebDataBinderFactory binderFactory
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
